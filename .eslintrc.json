@@ -13,7 +13,8 @@
     ],
     "settings": {
         "import/resolver": {
-            "typescript": {}
+            "typescript": {},
+            "import/ignore": [".scss$"]
         }
     },
     "parser": "@typescript-eslint/parser",
@@ -69,6 +70,12 @@
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
         "import/prefer-default-export": "off",
-        "react/prop-types": "off"
+        "react/prop-types": "off",
+        "react/function-component-definition": "off",
+        "react/button-has-type": "off",
+        "jsx-a11y/click-events-have-key-events": "off",
+        "jsx-a11y/no-noninteractive-element-interactions": "off",
+        "jsx-a11y/no-static-element-interactions": "off",
+        "import/no-unresolved": "off"
     }
 }

@@ -3,6 +3,7 @@
     "plugins": ["stylelint-order"],
     "rules": {
         "indentation": 4,
-        "color-hex-case": "upper"
+        "color-hex-case": "upper",
+        "block-no-empty": null
     }
 }

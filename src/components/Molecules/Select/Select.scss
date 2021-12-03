@@ -1,0 +1,35 @@
+.select {
+    position: relative;
+    width: 275px;
+    height: 68px;
+    padding: 26px 16px;
+    background-color: #ECECEC;
+    cursor: pointer;
+
+    &--active {
+        background-color: #ECECEC;
+        border: 1px solid #3C3C3C65;
+    }
+
+    &__dropdown {
+        padding: 6px 13px;
+        width: 100%;
+        background-color: #F2F2F2;
+        left: 0;
+        position: absolute;
+        top: 103%;
+        display: none;
+
+        &--active {
+            display: block;
+        }
+    }
+
+    &__item {
+        background-color: #E9E7E7;
+
+        &:hover {
+            background-color: #3C3C3C65;
+        }
+    }
+}
