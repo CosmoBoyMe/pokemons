@@ -1,2 +1,14 @@
 .form-input {
+    background-color: transparent;
+    padding: 5px;
+    border: none;
+    outline: none;
+
+    &:focus {
+        border: 1px solid #9F9A9A;
+    }
+
+    &--invalid {
+        border: 1px solid red;
+    }
 }

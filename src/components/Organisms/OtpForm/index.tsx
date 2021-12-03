@@ -7,6 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 import { FormField } from '../../Molecules/FormField'
 import { FormButton } from '../../Atoms/FormButton'
+import { ErrorMessage } from '../../Atoms/ErrorMessage'
 
 interface IOtpFormValues {
     code: string
@@ -34,25 +35,31 @@ const OtpForm: FC = () => {
 
     return (
         <form className="otp-form" onSubmit={handleSubmit(handlerSubmitForm)}>
-            <Controller
-                name="code"
-                control={control}
-                defaultValue=""
-                render={({ field, fieldState: { invalid } }) => (
-                    <FormField
-                        placeholder="Code from SMS"
-                        type="text"
-                        labelName="Code from SMS"
-                        value={field.value}
-                        isValid={!invalid}
-                        onChange={field.onChange}
-                        name="code"
-                        id="code"
-                        // errorMessage={errors.login?.message ?? null}
-                    />
+            <div className="otp-form__controller">
+                <Controller
+                    name="code"
+                    control={control}
+                    defaultValue=""
+                    render={({ field, fieldState: { invalid } }) => (
+                        <FormField
+                            placeholder="Code from SMS"
+                            type="text"
+                            labelName="Code from SMS"
+                            value={field.value}
+                            isValid={!invalid}
+                            onChange={field.onChange}
+                            name="code"
+                            id="code"
+                        />
+                    )}
+                />
+                {errors.code?.message && (
+                    <ErrorMessage text={errors.code.message} />
                 )}
-            />
-            <FormButton />
+            </div>
+            <div className="otp-form__btn">
+                <FormButton />
+            </div>
         </form>
     )
 }

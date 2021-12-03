@@ -1,11 +1,15 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useNavigate } from 'react-router-dom'
 import './LoginForm.scss'
 
 import { FormField } from '../../Molecules/FormField'
 import { FormButton } from '../../Atoms/FormButton'
+import { ErrorMessage } from '../../Atoms/ErrorMessage'
+import { SCREENS } from '../../../routes/endpoints'
+import { AUTH_ERROR_MESSAGE } from '../../../const'
 
 interface ILoginFormValues {
     login: string
@@ -20,12 +24,22 @@ const loginFormSchema = yup
     })
     .required()
 
+const isUserRegistred = (login: string, password: string): boolean =>
+    login === 'kode@kode.ru' && password === 'Enk0deng'
+
 const LoginForm: FC = () => {
+    const [error, setError] = useState<string | null>(null)
+
+    const navigate = useNavigate()
+
     const handlerSubmitForm: SubmitHandler<ILoginFormValues> = ({
         login,
         password,
     }) => {
-        console.log(login, password)
+        if (isUserRegistred(login, password)) {
+            navigate(SCREENS.SCREEN_OTP)
+        }
+        setError(AUTH_ERROR_MESSAGE)
     }
 
     const {
@@ -50,10 +64,10 @@ const LoginForm: FC = () => {
                             labelName="Login"
                             value={field.value}
                             isValid={!invalid}
+                            errorMessage={errors.login?.message}
                             onChange={field.onChange}
                             name="login"
                             id="login"
-                            // errorMessage={errors.login?.message ?? null}
                         />
                     )}
                 />
@@ -70,15 +84,18 @@ const LoginForm: FC = () => {
                             labelName="password"
                             value={field.value}
                             isValid={!invalid}
+                            errorMessage={errors.password?.message}
                             onChange={field.onChange}
                             name="password"
                             id="password"
-                            // errorMessage={errors.login?.message ?? null}
                         />
                     )}
                 />
             </div>
-            <FormButton />
+            <div className="login-form__btn">
+                <FormButton />
+            </div>
+            {error && <ErrorMessage text={error} />}
         </form>
     )
 }
