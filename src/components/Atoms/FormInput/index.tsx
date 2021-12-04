@@ -23,7 +23,7 @@ const Input: FC<IFormInputProps> = ({
 }) => {
     return (
         <input
-            className={cn('form-inpit', {
+            className={cn('form-input', {
                 'form-input--invalid': !isValid,
             })}
             name={name}

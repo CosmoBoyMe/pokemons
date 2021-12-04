@@ -1,13 +1,16 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import './OtpForm.scss'
 
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
+import { useNavigate } from 'react-router'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { FormField } from '../../Molecules/FormField'
 import { FormButton } from '../../Atoms/FormButton'
 import { ErrorMessage } from '../../Atoms/ErrorMessage'
+import { SCREENS } from '../../../routes/endpoints'
+import { OTP_ERROR_MESSAGE } from '../../../const'
 
 interface IOtpFormValues {
     code: string
@@ -16,13 +19,19 @@ interface IOtpFormValues {
 const otpFormSchema = yup
     .object()
     .shape({
-        code: yup.string().required('is Required field'),
+        code: yup.string().min(5).required('is Required field'),
     })
     .required()
 
 const OtpForm: FC = () => {
+    const [errorMessage, setErrorMessage] = useState('')
+    const navigate = useNavigate()
+
     const handlerSubmitForm: SubmitHandler<IOtpFormValues> = ({ code }) => {
-        console.log(code)
+        if (code === '12345') {
+            navigate(SCREENS.SCREEN_POKEMONS)
+        }
+        setErrorMessage(OTP_ERROR_MESSAGE)
     }
 
     const {
@@ -60,6 +69,7 @@ const OtpForm: FC = () => {
             <div className="otp-form__btn">
                 <FormButton />
             </div>
+            <ErrorMessage text={errorMessage} />
         </form>
     )
 }
