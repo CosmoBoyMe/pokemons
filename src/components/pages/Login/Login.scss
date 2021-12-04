@@ -1,9 +1,9 @@
 .login {
-    &__login-form {
-        display: flex;
-        justify-content: center;
-        height: 100vh;
-        min-height: 420px;
-        align-items: center;
-    }
+  &__login-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    min-height: 420px;
+  }
 }

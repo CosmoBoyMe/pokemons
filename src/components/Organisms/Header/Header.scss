@@ -1,12 +1,12 @@
 .header {
-    background-color: #EBEBEB;
-    display: flex;
-    height: 60px;
-    padding: 0 15px;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  padding: 0 15px;
+  background-color: #ebebeb;
 
-    &__logout-btn {
-        margin-left: auto;
-    }
+  &__logout-btn {
+    margin-left: auto;
+  }
 }

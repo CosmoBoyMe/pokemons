@@ -1,11 +1,11 @@
 .form-field {
-    display: flex;
-    flex-direction: column;
-    padding: 15px 19px;
-    background-color: #ECECEC;
+  display: flex;
+  flex-direction: column;
+  padding: 15px 19px;
+  background-color: #ececec;
 
-    &__label {
-        color: #A0A0A0;
-        margin-bottom: 8px;
-    }
+  &__label {
+    margin-bottom: 8px;
+    color: #a0a0a0;
+  }
 }

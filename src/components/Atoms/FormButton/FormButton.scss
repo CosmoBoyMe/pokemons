@@ -1,15 +1,15 @@
 .form-button {
-    width: 96px;
-    height: 96px;
-    border: none;
-    border-radius: 50%;
-    outline: none;
-    background-color: #999;
-    background-image: url("../../../assets/arrow.png");
-    background-repeat: no-repeat;
-    background-position: center;
+  width: 96px;
+  height: 96px;
+  background-color: #999;
+  background-image: url("../../../assets/arrow.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  border-radius: 50%;
+  outline: none;
 
-    &:hover {
-        background-color: skyblue;
-    }
+  &:hover {
+    background-color: skyblue;
+  }
 }
