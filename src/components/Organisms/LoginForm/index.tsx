@@ -10,6 +10,9 @@ import { FormButton } from '../../Atoms/FormButton'
 import { ErrorMessage } from '../../Atoms/ErrorMessage'
 import { SCREENS } from '../../../routes/endpoints'
 import { AUTH_ERROR_MESSAGE } from '../../../const'
+import { isUserRegistred } from '../../../helpers'
+import { toogleViewOtpForm } from '../../../store/Slices/authSlice'
+import { useAppDispatch } from '../../../hooks'
 
 interface ILoginFormValues {
     login: string
@@ -24,19 +27,18 @@ const loginFormSchema = yup
     })
     .required()
 
-const isUserRegistred = (login: string, password: string): boolean =>
-    login === 'kode@kode.ru' && password === 'Enk0deng'
-
 const LoginForm: FC = () => {
     const [error, setError] = useState<string | null>(null)
 
     const navigate = useNavigate()
+    const dispatch = useAppDispatch()
 
     const handlerSubmitForm: SubmitHandler<ILoginFormValues> = ({
         login,
         password,
     }) => {
         if (isUserRegistred(login, password)) {
+            dispatch(toogleViewOtpForm(true))
             navigate(SCREENS.SCREEN_OTP)
         }
         setError(AUTH_ERROR_MESSAGE)
