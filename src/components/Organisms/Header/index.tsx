@@ -1,8 +1,11 @@
 import { FC } from 'react'
 import './Header.scss'
 import { useNavigate, useLocation } from 'react-router-dom'
+import { useAppDispatch } from '../../../hooks'
+import { logout } from '../../../store/Slices/authSlice'
 
 const Header: FC = () => {
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const { pathname } = useLocation()
     const handlerClickBackBtn = (): void => {
@@ -11,7 +14,7 @@ const Header: FC = () => {
     }
 
     const handlerClickLogoutBtn = (): void => {
-        console.log('logout btn')
+        dispatch(logout())
     }
 
     return (

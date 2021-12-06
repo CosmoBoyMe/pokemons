@@ -27,6 +27,10 @@
     },
     "plugins": ["react", "@typescript-eslint", "react-hooks"],
     "rules": {
+        "no-param-reassign": [
+            "error",
+            { "props": true, "ignorePropertyModificationsFor": ["state"] }
+        ],
         "no-use-before-define": "off",
         "@typescript-eslint/no-use-before-define": ["error"],
         "react/jsx-filename-extension": [
@@ -45,12 +49,6 @@
         ],
         "no-shadow": "off",
         "@typescript-eslint/no-shadow": ["error"],
-        "@typescript-eslint/explicit-function-return-type": [
-            "error",
-            {
-                "allowExpressions": true
-            }
-        ],
         "prettier/prettier": [
             "error",
             {
