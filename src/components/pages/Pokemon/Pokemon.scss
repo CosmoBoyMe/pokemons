@@ -1,3 +1,12 @@
 .pokemon {
+  &__title {
+    text-align: center;
+  }
 
+  &__img {
+  }
+
+  &__inner {
+    display: flex;
+  }
 }
