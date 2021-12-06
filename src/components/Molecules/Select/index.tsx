@@ -5,45 +5,48 @@ import cn from 'classnames'
 interface ISelectProps {
     items: Array<string>
     name: string
-}
-const filterTypes = (text: string, items: Array<string>): Array<string> => {
-    return items.filter((item) => item.startsWith(text))
+    selectedItemName: string | ''
+    setSelectedItemName: (itemName: string) => void
 }
 
-const Select: FC<ISelectProps> = ({ items, name }) => {
+const filterItems = (text: string, items: Array<string>): Array<string> => {
+    const lowerCaseText = text.toLowerCase()
+
+    return items.filter((item) => {
+        const lowerCaseItem = item.toLowerCase()
+
+        return lowerCaseItem.startsWith(lowerCaseText)
+    })
+}
+
+const Select: FC<ISelectProps> = ({
+    items,
+    name,
+    selectedItemName,
+    setSelectedItemName,
+}) => {
     const [showDropdown, setShowDropdown] = useState<boolean>(false)
-    const [selectedType, setSelectedType] = useState<string>('')
     const [inputValue, setInputValue] = useState<string>('')
-    const [sortedTypeList, setSortedTypeList] = useState(items)
-    const [lastInputValueLength, setLastInputLength] = useState<number>(0)
+    const [filtredItems, setfiltredItems] = useState(items)
 
     const handlerChangeInput = (event: ChangeEvent<HTMLInputElement>): void => {
         const { value } = event.currentTarget
-        const userDeletChar = lastInputValueLength > value.length
-        let filtredItems
-
-        if (userDeletChar) {
-            filtredItems = filterTypes(value, items)
-        } else {
-            filtredItems = filterTypes(value, sortedTypeList)
-        }
+        const newFilteredItems = filterItems(value, items)
 
         setInputValue(value)
-        setLastInputLength(value.length)
-        setSortedTypeList(filtredItems)
+        setfiltredItems(newFilteredItems)
     }
 
     const toogleDropdown = (): void => {
         setShowDropdown(!showDropdown)
-        setLastInputLength(0)
-        setSortedTypeList(items)
-        setInputValue('')
     }
 
     const handlerClickLi = (event: MouseEvent<HTMLLIElement>): void => {
         const { textContent } = event.currentTarget
         if (textContent !== null) {
-            setSelectedType(textContent)
+            setSelectedItemName(textContent)
+            setfiltredItems(items)
+            setInputValue('')
             toogleDropdown()
         }
     }
@@ -56,7 +59,7 @@ const Select: FC<ISelectProps> = ({ items, name }) => {
             onClick={toogleDropdown}
         >
             <p className="select__name">
-                {selectedType !== '' ? selectedType : name}
+                {selectedItemName !== '' ? selectedItemName : name}
             </p>
             <ul
                 className={cn('select__dropdown', {
@@ -72,7 +75,7 @@ const Select: FC<ISelectProps> = ({ items, name }) => {
                         className="select__search-input"
                     />
                 </li>
-                {sortedTypeList.map((item) => (
+                {filtredItems.map((item) => (
                     <li
                         data-option=""
                         onClick={handlerClickLi}
