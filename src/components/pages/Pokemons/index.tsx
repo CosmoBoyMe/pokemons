@@ -1,12 +1,22 @@
 import { FC } from 'react'
 import './Pokemons.scss'
+import { Navigate } from 'react-router'
 
 import { Header } from '../../Organisms/Header'
 import { PokemonCards } from '../../Organisms/PokemonCards'
 import { Pagination } from '../../Organisms/Pagination'
 import { PokemonFilters } from '../../Organisms/PokemonFilters'
+import { useAppSelector } from '../../../hooks'
+import { authSelector } from '../../../selectors'
+import { SCREENS } from '../../../routes/endpoints'
 
 const Pokemons: FC = () => {
+    const { isAuth } = useAppSelector(authSelector)
+
+    if (!isAuth) {
+        return <Navigate to={SCREENS.SCREEN_LOGIN} />
+    }
+
     return (
         <div className="pokemons">
             <div className="container">

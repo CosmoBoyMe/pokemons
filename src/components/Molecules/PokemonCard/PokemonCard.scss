@@ -1,3 +1,10 @@
-.pokemon-cards {
+.pokemon-card {
+  &__img {
+    margin-bottom: 10px;
+  }
 
+  &__name {
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
 }
