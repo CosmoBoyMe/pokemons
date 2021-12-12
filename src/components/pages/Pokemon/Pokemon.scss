@@ -13,7 +13,7 @@
     margin-top: 40px;
   }
 
-  &__info {
+  &__info-container {
     margin-right: 50px;
   }
 
@@ -31,7 +31,8 @@
       margin-top: 20px;
     }
 
-    &__info {
+    &__info-container {
+      width: 350px;
       margin-right: 0;
       margin-bottom: 40px;
     }

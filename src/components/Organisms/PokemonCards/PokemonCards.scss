@@ -2,18 +2,44 @@
   padding: 59px 86px;
   background-color: #fafafa;
 
+  &__loader {
+    width: 50px;
+    margin: 0 auto;
+  }
+
+  &__not-found-text {
+    margin: 0 auto;
+    font-weight: bold;
+    font-size: 32px;
+  }
+
   &__list {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
   }
 
   &__item {
-    margin-right: 80px;
+    width: 100%;
+    max-width: 250px;
+    max-height: 400px;
     margin-bottom: 30px;
     cursor: pointer;
+  }
+}
 
-    &:nth-child(3n) {
-      margin-right: 0;
+@media (max-width: 1280px) {
+  .pokemon-cards {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .pokemon-cards {
+    &__list {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

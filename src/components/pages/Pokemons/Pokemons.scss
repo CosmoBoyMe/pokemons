@@ -24,3 +24,16 @@
     margin: 0 auto;
   }
 }
+
+@media (max-width: 1280px) {
+  .pokemons {
+    &__filters {
+      margin-right: 0;
+      margin-bottom: 40px;
+    }
+
+    &__main {
+      flex-direction: column;
+    }
+  }
+}
