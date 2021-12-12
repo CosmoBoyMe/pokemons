@@ -1,63 +1,56 @@
 import { FC, useEffect } from 'react'
 import './Pokemon.scss'
+import { useParams } from 'react-router'
 import { useAppDispatch, useAppSelector } from '../../../hooks'
-import { pokemonsSelector } from '../../../selectors'
+import { pokemonSelector } from '../../../selectors'
 import { Header } from '../../Organisms/Header'
-import { loadPokemonCard } from '../../../store/Slices/pokemonsSlice'
+import { loadPokemonCard } from '../../../store/Slices/pokemonSlice'
+import { PokemonCharacters } from '../../Organisms/PokemonCharacters'
+import { PokemonInfo } from '../../Organisms/PokemonInfo'
+import { Loader } from '../../Atoms/Loader'
 
 const Pokemon: FC = () => {
-    const { selectedPokemonId, selectedPokemon } =
-        useAppSelector(pokemonsSelector)
+    const { id } = useParams()
+    const { selectedPokemon } = useAppSelector(pokemonSelector)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        if (selectedPokemonId) {
-            dispatch(loadPokemonCard(selectedPokemonId))
+        if (id) {
+            dispatch(loadPokemonCard(id))
         }
-    }, [dispatch])
-
-    const { name, hp, supertype, type, subtypes, images, flavorText }: any =
-        selectedPokemon ?? {}
+    }, [dispatch, id])
 
     return (
         <div className="pokemon">
             <div className="container">
                 <Header />
-            </div>
-            {selectedPokemon === null ? (
-                <h1 className="pokemon__title">
-                    PLEASE GO BACK AND SELECT POKEMON
-                </h1>
-            ) : (
-                <main className="pokemon__main">
-                    <div className="container">
+                {selectedPokemon === null ? (
+                    <div className="pokemon__loader">
+                        <Loader />
+                    </div>
+                ) : (
+                    <main className="pokemon__main">
                         <div className="pokemon__inner">
                             <div className="pokemon__info">
-                                <img
-                                    src={images.small}
-                                    alt="pokemon"
-                                    className="pokemon__img"
+                                <PokemonInfo
+                                    imgSrc={selectedPokemon.images.large}
+                                    description={selectedPokemon.flavorText}
                                 />
-                                <div className="pokemon__description">
-                                    {flavorText}
-                                </div>
                             </div>
-                            <ul className="pokemon__characters">
-                                <li className="pokemon__character">{name}</li>
-                                <li className="pokemon__character">
-                                    {supertype}
-                                </li>
-                                <li className="pokemon__character">{type}</li>
-                                <li className="pokemon__character">
-                                    {subtypes[0]}
-                                </li>
-                                <li className="pokemon__character">{hp}</li>
-                                <li className="pokemon__character">{name}</li>
-                            </ul>
+                            <div className="pokemon__characters">
+                                <PokemonCharacters
+                                    hp={selectedPokemon.hp}
+                                    name={selectedPokemon.name}
+                                    subTypes={selectedPokemon.subtypes}
+                                    superType={selectedPokemon.supertype}
+                                    types={selectedPokemon.types}
+                                    attacks={selectedPokemon.attacks}
+                                />
+                            </div>
                         </div>
-                    </div>
-                </main>
-            )}
+                    </main>
+                )}
+            </div>
         </div>
     )
 }
