@@ -1,67 +1,35 @@
 import './PokemonCards.scss'
-import { FC, useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '../../../hooks'
-
-import { loadPokemonCards } from '../../../store/Slices/pokemonsSlice'
-import {
-    setSelectedPokemonId,
-    loadPokemonCard,
-} from '../../../store/Slices/pokemonSlice'
-
-import { pokemonSelector, pokemonsSelector } from '../../../selectors'
-import { SCREENS } from '../../../routes/endpoints'
+import { FC } from 'react'
 
 import { Loader } from '../../Atoms/Loader'
 import { PokemonCard } from '../../Molecules/PokemonCard'
-import { Modal } from '../Modal'
-import { ModalPokemonContent } from '../ModalPokemonContent'
+import { IPokemonCardsItem } from '../../../interfaces'
 
-const PokemonCards: FC = () => {
-    const { pokemons, fetching } = useAppSelector(pokemonsSelector)
-    const {
-        selectedPokemon,
-        selectedPokemonId,
-        fetching: isPokemonFetcing,
-    } = useAppSelector(pokemonSelector)
-    const [isOpen, setIsOpen] = useState(false)
-    const navigate = useNavigate()
-    const dispatch = useAppDispatch()
+interface IPokemonCardsProps {
+    pokemons: [IPokemonCardsItem] | null
+    onClickCard: (id: string) => void
+    loading: boolean
+}
 
-    const handlerClickLi = (id: string) => {
-        dispatch(setSelectedPokemonId(id))
-        dispatch(loadPokemonCard(id))
-        setIsOpen(true)
-    }
-
-    const handlerCloseModal = () => {
-        setIsOpen(false)
-    }
-
-    const handlerClickMoveToPokemonPage = () => {
-        navigate(`/pokemon/${selectedPokemonId}`)
-    }
-
-    useEffect(() => {
-        if (pokemons === null) {
-            dispatch(loadPokemonCards())
-        }
-    }, [dispatch, pokemons])
-
+const PokemonCards: FC<IPokemonCardsProps> = ({
+    pokemons,
+    onClickCard,
+    loading,
+}) => {
     return (
         <div className="pokemon-cards">
-            {fetching ? (
+            {loading ? (
                 <div className="pokemon-cards__loader">
                     <Loader />
                 </div>
             ) : (
-                <>
-                    <ul className="pokemon-cards__list">
-                        {pokemons.map(
+                <ul className="pokemon-cards__list">
+                    {pokemons &&
+                        pokemons.map(
                             ({ id, name, artist, images: { small } }) => {
                                 return (
                                     <li
-                                        onClick={() => handlerClickLi(id)}
+                                        onClick={() => onClickCard(id)}
                                         key={id}
                                         className="pokemon-cards__item"
                                     >
@@ -74,25 +42,7 @@ const PokemonCards: FC = () => {
                                 )
                             }
                         )}
-                    </ul>
-                    <Modal open={isOpen} closeModal={handlerCloseModal}>
-                        {selectedPokemon &&
-                            (isPokemonFetcing ? (
-                                <div className="pokemon-cards__loader">
-                                    <Loader />
-                                </div>
-                            ) : (
-                                <ModalPokemonContent
-                                    name={selectedPokemon.name}
-                                    imgSrc={selectedPokemon.images.small}
-                                    onClose={handlerCloseModal}
-                                    onMoreDetails={
-                                        handlerClickMoveToPokemonPage
-                                    }
-                                />
-                            ))}
-                    </Modal>
-                </>
+                </ul>
             )}
         </div>
     )

@@ -6,14 +6,14 @@ import { MAX_POKEMONS_COUNT } from '../../const'
 
 interface IPokemonsState {
     errorMessage: string
-    pokemons: Array<IPokemonCardsItem>
+    pokemons: [IPokemonCardsItem] | null
     currentPageNumber: number
     pokemonsTotalCount: number
     fetching: boolean
 }
 
 const initialState: IPokemonsState = {
-    pokemons: [],
+    pokemons: null,
     currentPageNumber: 1,
     pokemonsTotalCount: 0,
     errorMessage: '',
