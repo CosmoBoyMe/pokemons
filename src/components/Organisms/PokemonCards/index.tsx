@@ -43,8 +43,11 @@ const PokemonCards: FC = () => {
     }
 
     useEffect(() => {
-        dispatch(loadPokemonCards())
-    }, [dispatch])
+        if (pokemons === null) {
+            dispatch(loadPokemonCards())
+        }
+    }, [dispatch, pokemons])
+
     return (
         <div className="pokemon-cards">
             {fetching ? (

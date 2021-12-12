@@ -1,21 +1,48 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import {
+    persistReducer,
+    FLUSH,
+    REHYDRATE,
+    PAUSE,
+    PERSIST,
+    PURGE,
+    REGISTER,
+} from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 import pokemons from './Slices/pokemonsSlice'
 import auth from './Slices/authSlice'
 import pokemon from './Slices/pokemonSlice'
 import filters from './Slices/filtersSlice'
 
-const reducers = {
+const reducers = combineReducers({
     auth,
     pokemons,
     pokemon,
     filters,
+})
+
+const persistConfig = {
+    key: 'root',
+    version: 1,
+    storage,
 }
 
+const persistedReducer = persistReducer(persistConfig, reducers)
+
 export const store = configureStore({
-    reducer: reducers,
+    reducer: persistedReducer,
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
-            serializableCheck: false,
+            serializableCheck: {
+                ignoredActions: [
+                    FLUSH,
+                    REHYDRATE,
+                    PAUSE,
+                    PERSIST,
+                    PURGE,
+                    REGISTER,
+                ],
+            },
         }),
 })
 

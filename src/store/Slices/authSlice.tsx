@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { setLocalStorageItem, removeLocalStorageItem } from '../../helpers'
 
 interface IAuthState {
     isAuth: boolean
@@ -8,7 +7,7 @@ interface IAuthState {
 
 const initialState: IAuthState = {
     viewOtpForm: false,
-    isAuth: !!localStorage.getItem('isAuth'),
+    isAuth: false,
 }
 
 const authSlice = createSlice({
@@ -17,12 +16,10 @@ const authSlice = createSlice({
     reducers: {
         authUser: (state) => {
             state.isAuth = true
-            setLocalStorageItem('isAuth', 'true')
         },
 
         logout: (state) => {
             state.isAuth = false
-            removeLocalStorageItem('isAuth')
         },
 
         toogleViewOtpForm: (state, action) => {

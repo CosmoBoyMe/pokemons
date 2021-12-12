@@ -1,11 +1,3 @@
-const removeLocalStorageItem = (itemName: string): void => {
-    localStorage.removeItem(itemName)
-}
-
-const setLocalStorageItem = (itemName: string, value: string): void => {
-    localStorage.setItem(itemName, value)
-}
-
 const buildQueryParamString = (params: { [key: string]: string }): string => {
     const entries: Array<[string, string]> = Object.entries(params)
 
@@ -76,8 +68,6 @@ const buildPageNumbers = (
 const checkOtpCode = (code: string) => code === '12345'
 
 export {
-    removeLocalStorageItem,
-    setLocalStorageItem,
     buildQueryParamString,
     isUserRegistred,
     checkOtpCode,

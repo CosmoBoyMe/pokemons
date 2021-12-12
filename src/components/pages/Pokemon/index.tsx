@@ -15,7 +15,7 @@ const Pokemon: FC = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        if (id) {
+        if (id !== undefined && selectedPokemon?.id !== id) {
             dispatch(loadPokemonCard(id))
         }
     }, [dispatch, id])

@@ -33,9 +33,11 @@ const PokemonFilters: FC = () => {
     }
 
     useEffect(() => {
-        dispatch(loadPokemonTypes())
-        dispatch(loadPokemonSubTypes())
-    }, [dispatch])
+        if (!types && !subTypes) {
+            dispatch(loadPokemonTypes())
+            dispatch(loadPokemonSubTypes())
+        }
+    }, [dispatch, types, subTypes])
 
     return (
         <div className="pokemon-filters">
