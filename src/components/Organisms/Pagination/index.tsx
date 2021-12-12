@@ -1,40 +1,60 @@
-import { FC, useState } from 'react'
 import './Pagination.scss'
+import classNames from 'classnames'
+import { FC } from 'react'
+import { buildPageNumbers } from '../../../helpers'
+import { MAX_POKEMONS_COUNT, PAGE_COUNT_PER_PAGE } from '../../../const'
 
-// const currentPage = 1
-const maxPageCount = 5
-const totalItemsCount = 30
-const maxItemsPerPage = 5
+interface IPaginationProps {
+    totalCount: number
+    currentPageNumber: number
+    onClickPage(page: number): void
+}
 
-// const createPageNumbersArray = (
-//     startPageNumber,
-//     maxPageNumber
-// ): Array<number> => {
-//     const pageNumbers = []
+const Pagination: FC<IPaginationProps> = ({
+    totalCount,
+    currentPageNumber,
+    onClickPage,
+}) => {
+    const totalPageCount = Math.ceil(totalCount / MAX_POKEMONS_COUNT)
 
-//     const
-
-// }
-
-const Pagination: FC = () => {
-    const [currentPage, setCurrentPage] = useState(1)
-
-    const handlerClickUl = (): void => {
-        console.log(1)
-    }
-
-    const handlerClickBtn = (): void => {
-        console.log(1)
-    }
+    const pageNumbers = buildPageNumbers(
+        currentPageNumber,
+        totalPageCount,
+        PAGE_COUNT_PER_PAGE
+    )
 
     return (
         <div className="pagination">
-            <ul onClick={handlerClickUl} className="pagination__number-list">
-                <li className="pagination__page-number" />
+            {currentPageNumber > PAGE_COUNT_PER_PAGE - 2 && (
+                <button
+                    className="pagination__btn"
+                    onClick={() => onClickPage(1)}
+                >
+                    first
+                </button>
+            )}
+            <ul className="pagination__number-list">
+                {pageNumbers.map((pageNumber) => (
+                    <li
+                        onClick={() => onClickPage(pageNumber)}
+                        key={pageNumber}
+                        className={classNames('pagination__page-number', {
+                            'pagination__page-number--active':
+                                pageNumber === currentPageNumber,
+                        })}
+                    >
+                        {pageNumber}
+                    </li>
+                ))}
             </ul>
-            <button onClick={handlerClickBtn} className="pagination__last-btn">
-                last
-            </button>
+            {currentPageNumber < totalPageCount - 2 && (
+                <button
+                    onClick={() => onClickPage(totalPageCount)}
+                    className="pagination__btn"
+                >
+                    last
+                </button>
+            )}
         </div>
     )
 }

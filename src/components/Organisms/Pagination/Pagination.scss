@@ -8,4 +8,26 @@
   &__number-list {
     display: flex;
   }
+
+  &__page-number {
+    margin-right: 10px;
+    padding: 5px;
+    border: 1px solid black;
+    cursor: pointer;
+
+    &:hover {
+      color: white;
+      background-color: gray;
+    }
+  }
+
+  &__page-number--active {
+    color: white;
+    background-color: black;
+  }
+
+  &__btn {
+    margin-right: 10px;
+    padding: 5px;
+  }
 }

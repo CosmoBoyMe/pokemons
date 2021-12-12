@@ -6,15 +6,20 @@ const setLocalStorageItem = (itemName: string, value: string): void => {
     localStorage.setItem(itemName, value)
 }
 
-const buildQueryParamsString = (params: any): string => {
-    let queryParamsString = ''
-    const entries: Array<any> = Object.entries(params)
+const buildQueryParamString = (params: { [key: string]: string }): string => {
+    const entries: Array<[string, string]> = Object.entries(params)
+
+    if (entries.length === 0) {
+        return ''
+    }
+
+    let queryParamString = '&q='
     entries.forEach(([key, value]) => {
         if (value) {
-            queryParamsString += `&q=${key}:${value}`
+            queryParamString += `${key}:${value} `
         }
     })
-    return queryParamsString
+    return queryParamString
 }
 
 const isUserRegistred = (login: string, password: string): boolean => {
@@ -27,12 +32,54 @@ const isUserRegistred = (login: string, password: string): boolean => {
     return false
 }
 
+const buildPageNumbers = (
+    currentPage: number,
+    totalPageCount: number,
+    buttonsCount: number
+) => {
+    const pages = []
+    let firstPage = Math.max(1, currentPage - Math.floor(buttonsCount / 2))
+    let lastPage = Math.min(
+        totalPageCount,
+        currentPage + Math.floor(buttonsCount / 2)
+    )
+
+    if (lastPage - firstPage + 1 < buttonsCount) {
+        if (currentPage < totalPageCount / 2) {
+            lastPage = Math.min(
+                totalPageCount,
+                lastPage + (buttonsCount - (lastPage - firstPage))
+            )
+        } else {
+            firstPage = Math.max(
+                1,
+                firstPage - (buttonsCount - (lastPage - firstPage))
+            )
+        }
+    }
+
+    if (lastPage - firstPage + 1 > buttonsCount) {
+        if (currentPage > totalPageCount / 2) {
+            firstPage += 1
+        } else {
+            lastPage -= 1
+        }
+    }
+
+    for (let i = firstPage; i <= lastPage; i += 1) {
+        pages.push(i)
+    }
+
+    return pages
+}
+
 const checkOtpCode = (code: string) => code === '12345'
 
 export {
     removeLocalStorageItem,
     setLocalStorageItem,
-    buildQueryParamsString,
+    buildQueryParamString,
     isUserRegistred,
     checkOtpCode,
+    buildPageNumbers,
 }

@@ -10,7 +10,10 @@ import {
     setSelectedSubType,
 } from '../../../store/Slices/filtersSlice'
 import { filtersSelector } from '../../../selectors'
-import { loadPokemonCards } from '../../../store/Slices/pokemonsSlice'
+import {
+    loadPokemonCards,
+    setCurrentPageNumber,
+} from '../../../store/Slices/pokemonsSlice'
 
 const PokemonFilters: FC = () => {
     const { types, subTypes, selectedSubType, selectedType } =
@@ -18,11 +21,13 @@ const PokemonFilters: FC = () => {
     const dispatch = useAppDispatch()
 
     const handlerSetType = (typeName: string): void => {
+        dispatch(setCurrentPageNumber(1))
         dispatch(setSelectedType(typeName))
         dispatch(loadPokemonCards())
     }
 
     const handerSetSubType = (subTypeName: string): void => {
+        dispatch(setCurrentPageNumber(1))
         dispatch(setSelectedSubType(subTypeName))
         dispatch(loadPokemonCards())
     }

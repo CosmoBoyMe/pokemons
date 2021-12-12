@@ -6,12 +6,24 @@ import { Header } from '../../Organisms/Header'
 import { PokemonCards } from '../../Organisms/PokemonCards'
 import { Pagination } from '../../Organisms/Pagination'
 import { PokemonFilters } from '../../Organisms/PokemonFilters'
-import { useAppSelector } from '../../../hooks'
-import { authSelector } from '../../../selectors'
+import { useAppDispatch, useAppSelector } from '../../../hooks'
+import { authSelector, pokemonsSelector } from '../../../selectors'
 import { SCREENS } from '../../../routes/endpoints'
+import {
+    loadPokemonCards,
+    setCurrentPageNumber,
+} from '../../../store/Slices/pokemonsSlice'
 
 const Pokemons: FC = () => {
     const { isAuth } = useAppSelector(authSelector)
+    const { pokemonsTotalCount, currentPageNumber } =
+        useAppSelector(pokemonsSelector)
+    const dispatch = useAppDispatch()
+
+    const handlerClickPageNumber = (pageNumber: number) => {
+        dispatch(setCurrentPageNumber(pageNumber))
+        dispatch(loadPokemonCards())
+    }
 
     if (!isAuth) {
         return <Navigate to={SCREENS.SCREEN_LOGIN} />
@@ -32,7 +44,11 @@ const Pokemons: FC = () => {
                             <PokemonCards />
                         </div>
                         <div className="pokemons__pagination">
-                            <Pagination />
+                            <Pagination
+                                totalCount={pokemonsTotalCount}
+                                currentPageNumber={currentPageNumber}
+                                onClickPage={handlerClickPageNumber}
+                            />
                         </div>
                     </div>
                 </main>
