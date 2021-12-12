@@ -1,0 +1,17 @@
+.modal-pokemon-content {
+  &__name {
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+
+  &__img {
+    max-width: 300px;
+    max-height: 500px;
+    margin-bottom: 20px;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+}

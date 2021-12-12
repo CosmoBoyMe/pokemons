@@ -2,12 +2,12 @@ import './Modal.scss'
 import { FC } from 'react'
 
 interface IModalProps {
-    active: boolean
+    open: boolean
     closeModal(): void
 }
 
-const Modal: FC<IModalProps> = ({ active, children, closeModal }) => {
-    if (!active) {
+const Modal: FC<IModalProps> = ({ open, children, closeModal }) => {
+    if (!open) {
         return null
     }
     return (

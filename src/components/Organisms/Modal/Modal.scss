@@ -1,3 +1,21 @@
 .modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(229, 229, 229, 0.4%);
 
+  &__content {
+    width: 100%;
+    min-width: 300px;
+    min-height: 300px;
+    margin-top: 70px;
+    padding: 42px 40px;
+    background-color: white;
+    border-radius: 40px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.1%);
+    transition: width 0.5s;
+  }
 }
