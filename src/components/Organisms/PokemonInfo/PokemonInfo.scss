@@ -1,0 +1,19 @@
+.pokemon-info {
+  display: flex;
+  flex-direction: column;
+
+  &__img {
+    display: block;
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .pokemon-info {
+    &__img {
+      max-width: 350px;
+    }
+  }
+}

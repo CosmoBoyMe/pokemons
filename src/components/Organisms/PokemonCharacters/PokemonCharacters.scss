@@ -1,0 +1,16 @@
+.pokemon-characters {
+  display: flex;
+  flex-direction: column;
+
+  &__list {
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid gray;
+
+    &:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border: none;
+    }
+  }
+}

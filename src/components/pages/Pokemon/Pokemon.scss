@@ -3,10 +3,41 @@
     text-align: center;
   }
 
-  &__img {
+  &__loader {
+    width: 50px;
+    margin: 250px auto;
   }
 
   &__inner {
     display: flex;
+    margin-top: 40px;
+  }
+
+  &__info {
+    margin-right: 50px;
+  }
+
+  &__characters {
+    min-width: 300px;
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 600px) {
+  .pokemon {
+    &__inner {
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    &__info {
+      margin-right: 0;
+      margin-bottom: 40px;
+    }
+
+    &__characters {
+      margin-bottom: 20px;
+    }
   }
 }

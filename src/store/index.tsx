@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import pokemons from './Slices/pokemonsSlice'
 import auth from './Slices/authSlice'
+import pokemon from './Slices/pokemonSlice'
 import filters from './Slices/filtersSlice'
 
 const reducers = {
     auth,
     pokemons,
+    pokemon,
     filters,
 }
 
