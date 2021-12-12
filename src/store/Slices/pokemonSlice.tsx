@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-// import { RootState } from '../index'
 import { getPokemonCard } from '../../api'
 import { IPokemonCard } from '../../interfaces'
 

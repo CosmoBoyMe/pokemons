@@ -7,6 +7,10 @@
     display: flex;
   }
 
+  &__filters {
+    margin-right: 50px;
+  }
+
   &__content {
     display: flex;
     flex-direction: column;

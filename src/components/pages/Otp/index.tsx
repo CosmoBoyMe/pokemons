@@ -12,9 +12,11 @@ const Otp: FC = () => {
     if (isAuth) {
         return <Navigate to={SCREENS.SCREEN_POKEMON} />
     }
+
     if (!viewOtpForm) {
         return <Navigate to={SCREENS.SCREEN_LOGIN} />
     }
+
     console.log('code: 12345')
     return (
         <div className="otp">

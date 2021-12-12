@@ -19,31 +19,36 @@ const initialState: IFilterState = {
     fetching: false,
 }
 
-export const loadPokemonTypes = createAsyncThunk(
-    'pokemons/loadPokemonTypes',
-    async (_, { rejectWithValue }): Promise<any> => {
-        try {
-            const { data } = await getPokemonTypes()
-            return data.data
-        } catch (error: any) {
-            const errorMessage: string = error.response.data
-            return rejectWithValue(errorMessage)
-        }
+export const loadPokemonTypes = createAsyncThunk<
+    Array<string>,
+    undefined,
+    {
+        rejectValue: string
     }
-)
+>('pokemons/loadPokemonTypes', async (_, { rejectWithValue }) => {
+    try {
+        const { data } = await getPokemonTypes()
+        return data.data
+    } catch (error: any) {
+        const errorMessage: string = error.response.data
+        return rejectWithValue(errorMessage)
+    }
+})
 
-export const loadPokemonSubTypes = createAsyncThunk(
-    'filters/loadPokemonSubTypes',
-    async (_, { rejectWithValue }): Promise<any> => {
-        try {
-            const { data } = await getPokemonSubTypes()
-            return data.data
-        } catch (error: any) {
-            const errorMessage: string = error.response.data
-            return rejectWithValue(errorMessage)
-        }
+export const loadPokemonSubTypes = createAsyncThunk<
+    Array<string>,
+    undefined,
+    {
+        rejectValue: string
     }
-)
+>('filters/loadPokemonSubTypes', async (_, { rejectWithValue }) => {
+    try {
+        const { data } = await getPokemonSubTypes()
+        return data.data
+    } catch (error: any) {
+        return rejectWithValue(error.response.data)
+    }
+})
 
 const filterSlice = createSlice({
     name: 'filters',
@@ -62,7 +67,7 @@ const filterSlice = createSlice({
         },
         [loadPokemonTypes.fulfilled.type]: (
             state,
-            action: PayloadAction<any>
+            action: PayloadAction<Array<string>>
         ) => {
             state.types = action.payload
             state.errorMessage = ''
@@ -81,7 +86,7 @@ const filterSlice = createSlice({
         },
         [loadPokemonSubTypes.fulfilled.type]: (
             state,
-            action: PayloadAction<any>
+            action: PayloadAction<Array<string>>
         ) => {
             state.subTypes = action.payload
             state.errorMessage = ''
