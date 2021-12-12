@@ -28,7 +28,7 @@ const buildPageNumbers = (
     currentPage: number,
     totalPageCount: number,
     buttonsCount: number
-) => {
+): number[] => {
     const pages = []
     let firstPage = Math.max(1, currentPage - Math.floor(buttonsCount / 2))
     let lastPage = Math.min(
@@ -65,7 +65,7 @@ const buildPageNumbers = (
     return pages
 }
 
-const checkOtpCode = (code: string) => code === '12345'
+const checkOtpCode = (code: string): boolean => code === '12345'
 
 export {
     buildQueryParamString,

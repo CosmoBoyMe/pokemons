@@ -9,18 +9,21 @@ interface IPokemonsState {
     fetching: boolean
 }
 
-export const loadPokemonCard = createAsyncThunk(
-    'pokemons/loadPokemonCard',
-    async (pokemonId: string, { rejectWithValue }): Promise<any> => {
-        try {
-            const { data } = await getPokemonCard(pokemonId)
-            return data.data
-        } catch (error: any) {
-            const errorMessage: string = error.response.data
-            return rejectWithValue(errorMessage)
-        }
+export const loadPokemonCard = createAsyncThunk<
+    IPokemonCard,
+    string,
+    {
+        rejectValue: string
     }
-)
+>('pokemon/loadPokemonCard', async (pokemonId, { rejectWithValue }) => {
+    try {
+        const { data } = await getPokemonCard(pokemonId)
+        return data.data
+    } catch (error: any) {
+        const errorMessage: string = error.response.data
+        return rejectWithValue(errorMessage)
+    }
+})
 
 const initialState: IPokemonsState = {
     selectedPokemonId: null,

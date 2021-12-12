@@ -18,7 +18,7 @@ const Pokemon: FC = () => {
         if (id !== undefined && selectedPokemon?.id !== id) {
             dispatch(loadPokemonCard(id))
         }
-    }, [dispatch, id])
+    }, [dispatch, id, selectedPokemon])
 
     return (
         <div className="pokemon">
@@ -31,7 +31,7 @@ const Pokemon: FC = () => {
                 ) : (
                     <main className="pokemon__main">
                         <div className="pokemon__inner">
-                            <div className="pokemon__info">
+                            <div className="pokemon__info-container">
                                 <PokemonInfo
                                     imgSrc={selectedPokemon.images.large}
                                     description={selectedPokemon.flavorText}
